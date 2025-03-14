@@ -1,0 +1,102 @@
+info:
+  contact: {}
+paths:
+  /compress:
+    post:
+      consumes:
+      - application/json
+      description: Compress a PDF file to reduce its size
+      parameters:
+      - description: PDF file to compress
+        in: query
+        name: file
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Compressed PDF file created
+          schema:
+            type: string
+        "400":
+          description: Invalid request
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Compress a PDF file
+      tags:
+      - pdf
+  /merge:
+    post:
+      consumes:
+      - application/json
+      description: Merge two PDF files into one output PDF
+      parameters:
+      - description: First PDF File
+        in: query
+        name: file1
+        required: true
+        type: string
+      - description: Second PDF File
+        in: query
+        name: file2
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Merged PDF file created
+          schema:
+            type: string
+        "400":
+          description: Invalid request
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Merge two PDF files
+      tags:
+      - pdf
+  /split:
+    post:
+      consumes:
+      - application/json
+      description: Split a PDF file into smaller PDF files with a defined number of
+        pages per split
+      parameters:
+      - description: PDF file to split
+        in: query
+        name: file
+        required: true
+        type: string
+      - description: Pages per split
+        in: query
+        name: pagesPerSplit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: PDF file split
+          schema:
+            type: string
+        "400":
+          description: Invalid request
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Split a PDF into smaller parts
+      tags:
+      - pdf
+swagger: "2.0"

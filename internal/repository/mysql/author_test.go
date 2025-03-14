@@ -12,7 +12,7 @@ import (
 )
 
 func TestGetAuthorByID(t *testing.T) {
-	db, mock, err := sqlmock.New()
+	_, mock, err := sqlmock.New()
 	if err != nil {
 		t.Fatalf("an error '%s' was not expected when opening a stub database connection", err)
 	}
@@ -26,7 +26,7 @@ func TestGetAuthorByID(t *testing.T) {
 	userID := int64(1)
 	prep.ExpectQuery().WithArgs(userID).WillReturnRows(rows)
 
-	a := repository.NewAuthorRepository(db)
+	a := repository.NewAuthorRepository()
 
 	anArticle, err := a.GetByID(context.TODO(), userID)
 	assert.NoError(t, err)

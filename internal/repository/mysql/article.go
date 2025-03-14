@@ -5,8 +5,6 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/sirupsen/logrus"
-
 	"github.com/bxcodec/go-clean-arch/domain"
 	"github.com/bxcodec/go-clean-arch/internal/repository"
 )
@@ -16,21 +14,19 @@ type ArticleRepository struct {
 }
 
 // NewArticleRepository will create an object that represent the article.Repository interface
-func NewArticleRepository(conn *sql.DB) *ArticleRepository {
-	return &ArticleRepository{conn}
+func NewArticleRepository() *ArticleRepository {
+	return &ArticleRepository{}
 }
 
 func (m *ArticleRepository) fetch(ctx context.Context, query string, args ...interface{}) (result []domain.Article, err error) {
 	rows, err := m.Conn.QueryContext(ctx, query, args...)
 	if err != nil {
-		logrus.Error(err)
 		return nil, err
 	}
 
 	defer func() {
 		errRow := rows.Close()
 		if errRow != nil {
-			logrus.Error(errRow)
 		}
 	}()
 
@@ -48,7 +44,6 @@ func (m *ArticleRepository) fetch(ctx context.Context, query string, args ...int
 		)
 
 		if err != nil {
-			logrus.Error(err)
 			return nil, err
 		}
 		t.Author = domain.Author{

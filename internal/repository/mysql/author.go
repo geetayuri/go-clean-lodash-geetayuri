@@ -12,10 +12,8 @@ type AuthorRepository struct {
 }
 
 // NewMysqlAuthorRepository will create an implementation of author.Repository
-func NewAuthorRepository(db *sql.DB) *AuthorRepository {
-	return &AuthorRepository{
-		DB: db,
-	}
+func NewAuthorRepository() *AuthorRepository {
+	return &AuthorRepository{}
 }
 
 func (m *AuthorRepository) getOne(ctx context.Context, query string, args ...interface{}) (res domain.Author, err error) {
